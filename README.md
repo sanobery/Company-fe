@@ -105,6 +105,7 @@ Now you can run:
 npm run format
 npm run format:check
 ```
+
 ## Husky Implementation
 
 Implementing Husky in a Next.js project is a great way to enforce code quality by running Git hooks like pre-commit or pre-push. Here's how to set it up step by step:
@@ -113,13 +114,14 @@ Implementing Husky in a Next.js project is a great way to enforce code quality b
 
 ```bash
 npm install husky --save-dev
-npx husky install 
+npx husky install
 ```
+
 Then add this to your package.json to auto-enable hooks after install:
 
 json
 "scripts": {
-  "prepare": "husky install"
+"prepare": "husky install"
 }
 
 ## Add a Pre-Commit Hook
@@ -127,4 +129,5 @@ json
 ```bash
 npx husky add .husky/pre-commit "npm run lint"
 ```
+
 This creates a .husky/pre-commit file that runs npm run lint before every commit.

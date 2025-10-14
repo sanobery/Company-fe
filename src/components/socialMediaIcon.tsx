@@ -1,4 +1,4 @@
-import { SocialIconProps } from "@/app/types/company"
+import { SocialIconProps } from "@/types/company"
 
 export default function SocialMediaIcon({ href, Icon }: SocialIconProps) {
     return (
