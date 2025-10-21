@@ -1,104 +1,18 @@
 "use client"
-import AOS from "aos"
-import "aos/dist/aos.css"
-import { useEffect } from "react"
+import Product from "@/components/product"
+import Hero from "@/components/hero"
+import Process from "@/components/process"
+import Steps from "@/components/steps"
 
 export default function Home() {
-    useEffect(() => {
-        AOS.init({ duration: 500 })
-    }, [])
     return (
         <>
-            <div className="mb-5 bg-gray-100 text-gray-900" data-aos="fade-up">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat
-                molestiae aperia nihil impedit adipisci aut aliquam cum dicta
-                facilis ipsam consectetur saepe placeat recusandae, inventore
-                esse dolores numquam corrupti iure aspernatur temporibus
-                praesentium deleniti illo molestias excepturi. Soluta magni
-                impedit pariatur.Aspernatur quis labore, facilis, mollitia
-                assumenda rem eum quasi libero ipsam distinctio ipsa sint
-                voluptatem aliquid voluptatibus. Obcaecati doloribus fugiat
-                aliquam vel culpa accusantium laudantium ad dolorem sit, aut
-                sequi iusto provident mollitia cum id amet maxime expedita
-                nostrum ipsum deserunt consectetur at tempora? Fugiat neque
-                necessitatibus aliquid totam esse culpa itaque perferendis et
-                cumque nemo! Sed, modi eaque.
+            <div className="w-full px-6 py-10">
+                <Hero />
+                <Steps />
             </div>
-            <div className="mb-5 bg-gray-100 text-gray-900">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat
-                molestiae aperia nihil impedit adipisci aut aliquam cum dicta
-                facilis ipsam consectetur saepe placeat recusandae, inventore
-                esse dolores numquam corrupti iure aspernatur temporibus
-                praesentium deleniti illo molestias excepturi. Soluta magni
-                impedit pariatur.Aspernatur quis labore, facilis, mollitia
-                assumenda rem eum quasi libero ipsam distinctio ipsa sint
-                voluptatem aliquid voluptatibus. Obcaecati doloribus fugiat
-                aliquam vel culpa accusantium laudantium ad dolorem sit, aut
-                sequi iusto provident mollitia cum id amet maxime expedita
-                nostrum ipsum deserunt consectetur at tempora? Fugiat neque
-                necessitatibus aliquid totam esse culpa itaque perferendis et
-                cumque nemo! Sed, modi eaque.
-            </div>
-            <div className="mb-5 bg-gray-100 text-gray-900">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat
-                molestiae aperia nihil impedit adipisci aut aliquam cum dicta
-                facilis ipsam consectetur saepe placeat recusandae, inventore
-                esse dolores numquam corrupti iure aspernatur temporibus
-                praesentium deleniti illo molestias excepturi. Soluta magni
-                impedit pariatur.Aspernatur quis labore, facilis, mollitia
-                assumenda rem eum quasi libero ipsam distinctio ipsa sint
-                voluptatem aliquid voluptatibus. Obcaecati doloribus fugiat
-                aliquam vel culpa accusantium laudantium ad dolorem sit, aut
-                sequi iusto provident mollitia cum id amet maxime expedita
-                nostrum ipsum deserunt consectetur at tempora? Fugiat neque
-                necessitatibus aliquid totam esse culpa itaque perferendis et
-                cumque nemo! Sed, modi eaque.
-            </div>
-            <div className="mb-5 bg-gray-100 text-gray-900">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat
-                molestiae aperia nihil impedit adipisci aut aliquam cum dicta
-                facilis ipsam consectetur saepe placeat recusandae, inventore
-                esse dolores numquam corrupti iure aspernatur temporibus
-                praesentium deleniti illo molestias excepturi. Soluta magni
-                impedit pariatur.Aspernatur quis labore, facilis, mollitia
-                assumenda rem eum quasi libero ipsam distinctio ipsa sint
-                voluptatem aliquid voluptatibus. Obcaecati doloribus fugiat
-                aliquam vel culpa accusantium laudantium ad dolorem sit, aut
-                sequi iusto provident mollitia cum id amet maxime expedita
-                nostrum ipsum deserunt consectetur at tempora? Fugiat neque
-                necessitatibus aliquid totam esse culpa itaque perferendis et
-                cumque nemo! Sed, modi eaque.
-            </div>
-            <div className="mb-5 bg-gray-100 text-gray-900">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat
-                molestiae aperia nihil impedit adipisci aut aliquam cum dicta
-                facilis ipsam consectetur saepe placeat recusandae, inventore
-                esse dolores numquam corrupti iure aspernatur temporibus
-                praesentium deleniti illo molestias excepturi. Soluta magni
-                impedit pariatur.Aspernatur quis labore, facilis, mollitia
-                assumenda rem eum quasi libero ipsam distinctio ipsa sint
-                voluptatem aliquid voluptatibus. Obcaecati doloribus fugiat
-                aliquam vel culpa accusantium laudantium ad dolorem sit, aut
-                sequi iusto provident mollitia cum id amet maxime expedita
-                nostrum ipsum deserunt consectetur at tempora? Fugiat neque
-                necessitatibus aliquid totam esse culpa itaque perferendis et
-                cumque nemo! Sed, modi eaque.
-            </div>
-            <div className="mb-5 bg-gray-100 text-gray-900">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat
-                molestiae aperia nihil impedit adipisci aut aliquam cum dicta
-                facilis ipsam consectetur saepe placeat recusandae, inventore
-                esse dolores numquam corrupti iure aspernatur temporibus
-                praesentium deleniti illo molestias excepturi. Soluta magni
-                impedit pariatur.Aspernatur quis labore, facilis, mollitia
-                assumenda rem eum quasi libero ipsam distinctio ipsa sint
-                voluptatem aliquid voluptatibus. Obcaecati doloribus fugiat
-                aliquam vel culpa accusantium laudantium ad dolorem sit, aut
-                sequi iusto provident mollitia cum id amet maxime expedita
-                nostrum ipsum deserunt consectetur at tempora? Fugiat neque
-                necessitatibus aliquid totam esse culpa itaque perferendis et
-                cumque nemo! Sed, modi eaque.
-            </div>
+            <Process />
+            <Product />
         </>
     )
 }

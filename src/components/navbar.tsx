@@ -7,14 +7,14 @@ const navItem = ["home", "services", "team", "blog", "contact"]
 
 export default function Navbar() {
     return (
-        <nav className=" text-gray-900 flex relative justify-between items-center max-container padding-container z-30 py-3">
+        <nav className="bg-[#0e3234] text-white flex relative justify-between items-center z-30">
             <div>
                 <Image
                     className="dark:invert"
-                    src="/assets/brands/logo.png"
+                    src="/images/logo.png"
                     alt="Company Logo"
-                    width={100}
-                    height={30}
+                    width={140}
+                    height={70}
                     loading="lazy"
                     priority={false}
                 />
@@ -32,7 +32,7 @@ export default function Navbar() {
                     />
                 ))}
             </ul>
-            <FaBars className="cursor-pointer mr-3 lg:hidden" /> 
+            <FaBars className="cursor-pointer mr-3 lg:hidden" />
         </nav>
     )
 }
