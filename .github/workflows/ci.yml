@@ -3,7 +3,7 @@ name: "Company Website"
 on:
     push:
         branches:
-            - all
+            - Feature/ContactPage
 
 jobs:
     build-and-test:
