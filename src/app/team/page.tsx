@@ -12,13 +12,12 @@ export default function Team() {
         async function fetchData() {
             const data = await teamService.getAll()
             setTeamMember(data)
-            console.log(data)
         }
         fetchData()
     }, [])
 
     return (
-        <div className="flex flex-wrap justify-center gap-2 p-2">
+        <div className="pt-[100px] flex flex-wrap justify-center gap-2 p-2">
             {teamMember.map(
                 ({ documentId, name, designation, photo }: TeamMemberProps) => {
                     const imageUrl =

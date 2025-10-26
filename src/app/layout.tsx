@@ -1,18 +1,9 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
-import Navbar from "../components/navbar"
-import Footer from "../components/footer"
-
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-})
+import Navbar from "../components/navbar/navbar"
+import Footer from "../components/footer/footer"
+import Image from "next/image"
+import SearchProvider from "@/components/searchContext"
 
 export const metadata: Metadata = {
     title: "Interio",
@@ -27,8 +18,43 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Navbar />
-                <main className="relative overflow-hidden"> {children}</main>
+                <SearchProvider>
+                    <Navbar />
+                    <main className="relative overflow-hidden pt-[100px]">
+                        {" "}
+                        {children}
+                    </main>
+                </SearchProvider>
+                <div className="fixed top-1/3 right-0 z-50 flex flex-col gap-4">
+                    <Image
+                        src="/images/youtube.svg"
+                        alt="youtube"
+                        width={40}
+                        height={40}
+                        className="object-cover"
+                    />
+                    <Image
+                        src="/images/facebook.svg"
+                        alt="facebook"
+                        width={40}
+                        height={40}
+                        className="object-cover"
+                    />
+                    <Image
+                        src="/images/instagram.svg"
+                        alt="instagram"
+                        width={40}
+                        height={40}
+                        className="object-cover"
+                    />
+                    <Image
+                        src="/images/linkedin.svg"
+                        alt="linkedin"
+                        width={40}
+                        height={40}
+                        className="object-cover"
+                    />
+                </div>
                 <Footer />
             </body>
         </html>

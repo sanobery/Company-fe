@@ -1,0 +1,25 @@
+name: "Company Website"
+
+on:
+    push:
+        branches:
+            - all
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: "set-up node"
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+
+            - name: "Check node installed"
+              run: npm --version
+
+            - name: "Clone Repository"
+              uses: actions/checkout@v2
+
+            - name: "list directory"
+              run: ls

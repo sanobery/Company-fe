@@ -1,8 +1,10 @@
 "use client"
 import { useState, useRef, useEffect } from "react"
 import { FaSearch } from "react-icons/fa"
+import { useSearch } from "./searchContext"
 
 export default function SearchBar() {
+    const { query, setQuery } = useSearch()
     const [showInput, setShowInput] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
 
@@ -10,7 +12,7 @@ export default function SearchBar() {
         if (showInput && inputRef.current) {
             inputRef.current.focus()
         }
-    }, [showInput])
+    }, [query, showInput])
 
     return (
         <div className="relative w-full max-w-xs">
@@ -21,6 +23,7 @@ export default function SearchBar() {
                 className={`w-full pl-10 pr-4 py-2 border-2 border-[#d3925d] rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#d3925d] ${
                     showInput ? "opacity-100" : "opacity-0 pointer-events-none"
                 }`}
+                onChange={(e) => setQuery(e.target.value)}
             />
             <FaSearch
                 className="absolute right-3 top-3.5 text-[#d3925d] cursor-pointer"

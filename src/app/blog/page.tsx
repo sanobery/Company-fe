@@ -4,23 +4,34 @@ import { BlogProps } from "@/types/companyInterface"
 import { useEffect, useState } from "react"
 import blogService from "@/services/blog/blogService"
 import Link from "next/link"
+import { useSearch } from "@/components/searchContext"
+import Fuse from "fuse.js"
 
 export default function Blog() {
     const [teamMember, setTeamMember] = useState<BlogProps[]>([])
+    const { query } = useSearch()
 
     useEffect(() => {
         async function fetchData() {
             const data = await blogService.getAll()
             setTeamMember(data)
-            console.log(data)
         }
         fetchData()
     }, [])
 
+    const fuse = new Fuse(teamMember, {
+        keys: ["title", "summary"],
+        threshold: 0.3,
+    })
+
+    const filteredPosts = query
+        ? fuse.search(query).map((result) => result.item)
+        : teamMember
+
     return (
         <div className="flex flex-wrap justify-center gap-2 p-2 cursor-pointer">
-            {teamMember.map(
-                ({ documentId, title, date, author, image }: BlogProps) => {
+            {filteredPosts.map(
+                ({ documentId, title, author, image }: BlogProps) => {
                     const imageUrl =
                         image?.[0]?.formats?.medium?.url ||
                         image?.[0]?.url ||
@@ -28,10 +39,7 @@ export default function Blog() {
 
                     return (
                         <Link key={documentId} href={`/blog/${documentId}`}>
-                            <div
-                                key={documentId}
-                                className="card w-80 bg-base-200 shadow-xl m-2 sm:w-[600px]"
-                            >
+                            <div className="card w-80 bg-base-200 shadow-xl m-2 sm:w-[600px]">
                                 <figure className="w-full h-50 overflow-hidden rounded-t-xl">
                                     <Image
                                         src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${imageUrl}`}
@@ -46,7 +54,6 @@ export default function Blog() {
                                     <p className="mb-3 text-sm text-gray-500">
                                         {author?.name}
                                     </p>
-
                                     <h1 className="card-title font-serif text-2xl line-clamp-2">
                                         {title}
                                     </h1>
