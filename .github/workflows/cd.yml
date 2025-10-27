@@ -1,0 +1,31 @@
+name: "Company App-Cd"
+
+on:
+    workflow_run:
+        workflows: ["Company Website"]
+        types:
+            - completed
+    workflow_dispatch:
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        environment: recipe-fe
+        steps:
+            - name: "Setup Node JS"
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+
+            - name: "Setup Vercel cli"
+              run: npm install -g vercel
+
+            - name: "Download artifacts to be used for deployment"
+              uses: actions/download-artifact@v4
+              with:
+                  name: build
+                  run-id: ${{ github.event.workflow_run.id }}
+                  github-token: ${{ github.token }}
+
+            - name: "deploy in vercel"
+              run: vercel --prod --token=${{ secrets.RECIPE_FE }} --confirm

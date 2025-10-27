@@ -131,3 +131,11 @@ npx husky add .husky/pre-commit "npm run lint"
 ```
 
 This creates a .husky/pre-commit file that runs npm run lint before every commit.
+
+## Step-by-Step Integration with react-countup
+
+## Install the library
+
+```bash
+npm install react-countup
+```
