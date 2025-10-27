@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
         // domains: ["localhost"], // ✅ Allow Strapi dev server images
         remotePatterns: [
             {
+                protocol: "https",
+                hostname: "res.cloudinary.com",
+            },
+            {
                 protocol: "http",
                 hostname: "localhost",
                 port: "1337",

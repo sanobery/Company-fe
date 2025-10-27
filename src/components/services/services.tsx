@@ -16,6 +16,7 @@ export default function Services({
     description,
 }: ProductProps) {
     const [showModal, setShowModal] = useState<boolean>(false)
+    console.log(image, 19)
     const imageUrl =
         image?.[1]?.formats?.medium?.url || image?.[1]?.url || "/default.jpg"
     const path = `${process.env.NEXT_PUBLIC_STRAPI_URL}${imageUrl}`

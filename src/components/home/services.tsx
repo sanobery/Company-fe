@@ -3,7 +3,7 @@ import ProductService from "@/services/service/service"
 import { useEffect, useState } from "react"
 import type { ProductProps } from "@/types/companyInterface"
 import Image from "next/image"
-import { Fade, Slide } from "react-awesome-reveal"
+import { Fade } from "react-awesome-reveal"
 import Link from "next/link"
 import { motion } from "framer-motion"
 
@@ -39,7 +39,7 @@ export default function Product() {
                         ({ documentId, title, theme, price, image }, index) => {
                             const imagePath = image?.[0]?.url
                             if (!imagePath) return null
-
+                            console.log(image, 42)
                             return (
                                 <motion.div
                                     initial={{ opacity: 0, y: 50 }}
@@ -55,7 +55,7 @@ export default function Product() {
                                     <Fade triggerOnce>
                                         <div className="group relative w-[362px] h-[220px] m-5 overflow-hidden rounded-lg shadow-md">
                                             <Image
-                                                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${imagePath}`}
+                                                src={`${imagePath}`}
                                                 alt={title}
                                                 fill
                                                 className="object-cover transition-transform duration-500 group-hover:scale-110"
