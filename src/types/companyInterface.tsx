@@ -1,5 +1,5 @@
 interface LinkProps {
-    href?: string
+    href: string
 }
 export interface SocialIconProps extends LinkProps {
     Icon: React.ElementType

@@ -1,6 +1,6 @@
 // components/NavItem.tsx
+import { NavItemProps } from "@/types/companyInterface"
 import Link from "next/link"
-import { NavItemProps } from "../types/companyInterface"
 
 export default function NavItem({ label, href }: NavItemProps) {
     return (
