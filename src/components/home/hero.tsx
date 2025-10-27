@@ -7,6 +7,7 @@ import PhoneEmail from "../phoneEmail"
 import ContactPage from "../contact/contactPage"
 import Button from "../button"
 import { useRouter } from "next/navigation"
+import QuoteSection from "../QuoteSection"
 
 export default function Hero({
     heading,
@@ -100,12 +101,13 @@ export default function Hero({
                         )}
                     </div>
                     {showContactPage && (
-                        <div className="text-white w-full md:w-1/2 bg-[#0e3234] p-10 rounded-2xl border-4 border-[#d3925d]">
-                            <h1 className="text-[#d3925d] text-center font-[poppins] text-2xl md:text-xl">
-                                GET QUOTE NOW
-                            </h1>
-                            <ContactPage color="#d3925d" />
-                        </div>
+                        <QuoteSection widthClass="w-full lg:w-1/3" />
+                        // <div className="text-white w-full md:w-1/2 bg-[#0e3234] p-10 rounded-2xl border-4 border-[#d3925d]">
+                        //     <h1 className="text-[#d3925d] text-center font-[poppins] text-2xl md:text-xl">
+                        //         GET QUOTE NOW
+                        //     </h1>
+                        //     <ContactPage color="#d3925d" />
+                        // </div>
                     )}
                 </div>
             </div>

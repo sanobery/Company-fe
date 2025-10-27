@@ -5,6 +5,7 @@ import Hero from "@/components/home/hero"
 import ContactPage from "@/components/contact/contactPage"
 import blogService from "@/services/blog/blogService"
 import Image from "next/image"
+import QuoteSection from "../QuoteSection"
 
 const fetcher = (slug: string) => {
     const data = blogService.getBySlug(slug)
@@ -75,12 +76,13 @@ export default function BlogSlug({ slug }: { slug: string }) {
                 </div>
 
                 {/* Right Section: Quote Form */}
-                <div className="w-full lg:w-1/3 bg-[#0e3234] p-6 md:p-10 rounded-2xl border-4 border-[#d3925d] text-white flex flex-col justify-center">
+                <QuoteSection />
+                {/* <div className="w-full lg:w-1/3 bg-[#0e3234] p-6 md:p-10 rounded-2xl border-4 border-[#d3925d] text-white flex flex-col justify-center">
                     <h1 className="text-[#d3925d] text-center font-[poppins] text-2xl md:text-3xl mb-6">
                         GET QUOTE NOW
                     </h1>
                     <ContactPage color="#d3925d" />
-                </div>
+                </div> */}
             </div>
 
             <div className="container mx-auto px-4 py-8">
