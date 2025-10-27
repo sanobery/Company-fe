@@ -80,10 +80,12 @@ export default function Hero({
                         {showContactPage && (
                             <>
                                 <PhoneEmail
+                                    href="#"
                                     Icon={FaMobileAlt}
                                     label="+91 7996060000"
                                 />
                                 <PhoneEmail
+                                    href="#"
                                     Icon={FaMailBulk}
                                     label="sales@weadesign.com"
                                 />

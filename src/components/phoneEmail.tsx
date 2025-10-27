@@ -1,11 +1,11 @@
 import { ContactProps } from "@/types/companyInterface"
 import SocialMediaIcon from "./socialMediaIcon"
 
-export default function PhoneEmail({ Icon, label }: ContactProps) {
+export default function PhoneEmail({ href, Icon, label }: ContactProps) {
     return (
         <div className="flex flex-row ">
             <div className="bg-[#d3925d] p-3 rounded-full mt-3">
-                <SocialMediaIcon Icon={Icon} />
+                <SocialMediaIcon href={href} Icon={Icon} />
             </div>
             <label className="m-3 text-xl font-bold text-white">{label}</label>
         </div>
