@@ -139,3 +139,29 @@ This creates a .husky/pre-commit file that runs npm run lint before every commit
 ```bash
 npm install react-countup
 ```
+
+## Integrate react-hook-form + zod validation cleanly into your form — so you get full type safety, validation, and nice UX (no refactors later).
+
+```bash
+npm install react-hook-form zod @hookform/resolvers
+```
+
+## Install a toast library for Notification
+
+The most common and lightweight option is react-hot-toast:
+
+```bash
+npm install react-hot-toast
+```
+
+# 🧠 Zustand in Next.js (App Router)
+
+Zustand is a lightweight, scalable state management library perfect for Next.js — especially when you want to share client-side state across pages or components without the complexity of Redux.
+
+---
+
+## 📦 Installation
+
+```bash
+npm install zustand
+```

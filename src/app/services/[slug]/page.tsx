@@ -1,6 +1,6 @@
 // app/team/[slug]/page.tsx
 import ProductService from "@/services/service/service"
-import Services from "@/components/services/services"
+import ProductDetail from "@/components/sections/product/productDetail"
 
 export default async function ProductPage({
     params,
@@ -17,7 +17,7 @@ export default async function ProductPage({
 
     return (
         <>
-            <Services
+            <ProductDetail
                 documentId={documentId}
                 title={title}
                 theme={theme}

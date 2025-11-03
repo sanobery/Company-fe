@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
 import "./globals.css"
-import Navbar from "../components/navbar/navbar"
-import Footer from "../components/footer/footer"
-import Image from "next/image"
-import SearchProvider from "@/components/searchContext"
+import { ThemeProvider } from "@/lib/themeProvider"
+import Navbar from "@/components/layout/navbar/navbar"
+import SearchProvider from "@/components/shared/searchContext"
+import Footer from "@/components/layout/footer/footer"
+import Sidebar from "@/components/layout/sidebar"
 
 export const metadata: Metadata = {
     title: "Interio",
@@ -16,45 +17,21 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <body>
-                <SearchProvider>
-                    <Navbar />
-                    <main className="relative overflow-hidden pt-[100px]">
-                        {" "}
-                        {children}
-                    </main>
-                </SearchProvider>
-                <div className="fixed top-1/3 right-0 z-50 flex flex-col gap-4">
-                    <Image
-                        src="/images/youtube.svg"
-                        alt="youtube"
-                        width={40}
-                        height={40}
-                        className="object-cover"
-                    />
-                    <Image
-                        src="/images/facebook.svg"
-                        alt="facebook"
-                        width={40}
-                        height={40}
-                        className="object-cover"
-                    />
-                    <Image
-                        src="/images/instagram.svg"
-                        alt="instagram"
-                        width={40}
-                        height={40}
-                        className="object-cover"
-                    />
-                    <Image
-                        src="/images/linkedin.svg"
-                        alt="linkedin"
-                        width={40}
-                        height={40}
-                        className="object-cover"
-                    />
-                </div>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="dark"
+                    enableSystem
+                >
+                    <SearchProvider>
+                        <Navbar />
+                        <main className="relative overflow-hidden pt-[100px]">
+                            {children}
+                        </main>
+                    </SearchProvider>
+                </ThemeProvider>
+                <Sidebar />
                 <Footer />
             </body>
         </html>

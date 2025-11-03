@@ -1,8 +1,31 @@
 @import "tailwindcss";
 
-/* :root {
-    --background: #ffffff;
-    --foreground: #171717;
+.reusable-hover {
+    @apply cursor-pointer hover:font-bold transition-all;
+}
+
+.toggle-item {
+    @apply h-5 w-5 transition-transform duration-300 rotate-0 scale-100;
+}
+
+.transparency {
+    @apply absolute opacity-0 group-hover:opacity-100 transition-opacity duration-500;
+}
+
+:root {
+    --background: #fff;
+    --foreground: #0e3234;
+    --navfoot: #fff;
+    --navfootItem: #0e3234;
+    --navfootContrast: #d3925d;
+}
+
+.dark {
+    --background: #fff;
+    --foreground: #d3925d;
+    --navfoot: #0e3234;
+    --navfootItem: #d3925d;
+    --navfootContrast: #0e3234;
 }
 
 @theme inline {
@@ -10,24 +33,20 @@
     --color-foreground: var(--foreground);
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
+    --color-navfoot: var(--navfoot);
+    --color-navfootItem: var(--navfootItem);
+    --color-navfootContrast: var(--navfootContrast);
 }
 
 body {
     background: var(--background);
     color: var(--foreground);
     font-family: Arial, Helvetica, sans-serif;
-    overflow-x: hidden;
-    overflow-y: auto;
+    /* overflow-x: hidden;
+    overflow-y: auto; */
 }
-*/
-.theme-button {
+
+/* .theme-button {
     background: var(--background);
     color: var(--foreground);
-}
+} */

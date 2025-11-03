@@ -13,14 +13,14 @@ export const strapi = axios.create({
 const teamService = {
     getAll: async () =>
         safeRequest(async () => {
-            const res = await strapi.get("/team-members?populate=photo")
+            const res = await strapi.get("/team-members?populate=image")
             return res.data.data
         }, []),
 
-    getBySlug: async (slug: string) =>
+    getById: async (id: number) =>
         safeRequest(async () => {
             const res = await strapi.get(
-                `/team-members?filters[documentId][$eq]=${slug}&populate=photo`
+                `/team-members?filters[id][$eq]=${id}&populate=image`
             )
             return res.data.data?.[0] || null
         }, null),
