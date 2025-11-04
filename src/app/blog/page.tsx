@@ -11,7 +11,12 @@ import { useBlogStore } from "@/store/blogStore"
 import { useFetchData } from "@/hook/useFetchData"
 import { getMessage } from "@/lib/constantMessage"
 
-// Fetcher function
+/**
+ * Fetch all blogs from the API.
+ * @async
+ * @function fetchBlogs
+ * @returns {Promise<BlogProps[]>} A promise that resolves to an array of blogs.
+ */
 const fetchBlogs = async (): Promise<BlogProps[]> => {
     const data = await blogService.getAll()
     return data

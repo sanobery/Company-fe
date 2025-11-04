@@ -37,7 +37,7 @@ export default async function RootLayout({
                     </SearchProvider>
                 </ThemeProvider>
                 <Sidebar />
-                <Footer footer={footer.footerSection} />
+                <Footer footer={footer?.footerSection} />
             </body>
         </html>
     )
