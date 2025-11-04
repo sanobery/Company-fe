@@ -5,7 +5,7 @@ const blogService = {
     getAll: async () =>
         safeRequest(async () => {
             const res = await strapi.get(
-                "/blogs?populate[author][populate]=photo&populate=image"
+                "/blogs?populate[author][populate]=image&populate=image"
             )
             return res.data.data
         }, []),
@@ -13,7 +13,7 @@ const blogService = {
     getBySlug: async (slug: string) =>
         safeRequest(async () => {
             const res = await strapi.get(
-                `/blogs?filters[documentId][$eq]=${slug}&populate[author][populate]=photo&populate=image`
+                `/blogs?filters[documentId][$eq]=${slug}&populate[author][populate]=image&populate=image`
             )
             return res.data.data?.[0] || null
         }, null),
