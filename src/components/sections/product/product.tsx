@@ -16,6 +16,7 @@ import type {
 import ProductMeta from "./productMeta"
 import AnimatedItem from "../../shared/animatedItem"
 import LazyImage from "@/components/common/LazyImage"
+import { getMessage } from "@/lib/constantMessage"
 
 /**
  * Product Component
@@ -35,8 +36,15 @@ export default function Product({ type }: ProductComponentProps) {
                 ? await ProductService.getAll()
                 : await teamService.getAll()
         } catch (error) {
-            toast.error(`Error fetching ${type}`)
-            throw error
+            // Avoid using toast during build — log instead
+            if (typeof window !== "undefined") {
+                toast.error(`Error fetching ${type}`)
+            } else {
+                console.error(`❌ Build-time error fetching ${type}:`, error)
+            }
+
+            // Return an empty array to prevent build crash
+            return []
         }
     }
 
@@ -53,13 +61,17 @@ export default function Product({ type }: ProductComponentProps) {
     if (error) {
         return (
             <p className="text-center text-red-600 mt-4">
-                Error loading {type} data.
+                {getMessage(`${type}`, "failed")}
             </p>
         )
     }
 
     if (isLoading || !data) {
-        return <p className="text-center mt-4">Loading {type}...</p>
+        return (
+            <p className="text-center mt-4">
+                {getMessage(`${type}`, "loading")}
+            </p>
+        )
     }
 
     return (
