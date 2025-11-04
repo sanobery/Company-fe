@@ -17,7 +17,18 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
     const items: Testimonial[] = testimonials ?? []
     useEffect(() => {
         const updateCount = () => {
-            const count = window.innerWidth < 768 ? 1 : 3
+            let count
+
+            if (window.innerWidth < 640) {
+                // mobile
+                count = 1
+            } else if (window.innerWidth < 1024) {
+                // tablet
+                count = 2
+            } else {
+                // desktop
+                count = 3
+            }
             setVisibleCount(count)
         }
         updateCount()

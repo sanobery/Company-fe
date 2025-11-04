@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Fade } from "react-awesome-reveal"
+import ProductService from "@/services/product/productService"
+import teamService from "@/services/team/teamService"
+import useSWR from "swr"
+import toast from "react-hot-toast"
 
-import ProductService from "@/services/service/service"
-import teamService from "@/services/api/axiosInstance"
 import type {
     ProductComponentProps,
     ProductProps,
@@ -16,150 +17,181 @@ import ProductMeta from "./productMeta"
 import AnimatedItem from "../../shared/animatedItem"
 import LazyImage from "@/components/common/LazyImage"
 
+/**
+ * Product Component
+ * -----------------
+ * Dynamically displays either Products or Team Members depending on the `type` prop.
+ * Fetches data via SWR for caching and revalidation efficiency.
+ * Each item includes hover animation, image, and metadata.
+ */
 export default function Product({ type }: ProductComponentProps) {
-    const [data, setData] = useState<(ProductProps | TeamMemberProps)[]>([])
-
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const result =
-                    type === "products"
-                        ? await ProductService.getAll()
-                        : await teamService.getAll()
-                setData(result)
-            } catch (error) {
-                console.error(`Error fetching ${type}:`, error)
-            }
+    /**
+     * Fetcher function used by SWR
+     * - Fetches products or team data based on the type prop
+     */
+    const fetcher = async () => {
+        try {
+            return type === "products"
+                ? await ProductService.getAll()
+                : await teamService.getAll()
+        } catch (error) {
+            toast.error(`Error fetching ${type}`)
+            throw error
         }
-        fetchData()
-    }, [type])
+    }
+
+    /**
+     * useSWR Hook
+     * - Uses `type` as a cache key (must be stable — not dependent on fetched data)
+     * - Automatically caches and revalidates data
+     */
+    const { data, isLoading, error } = useSWR(type, fetcher, {
+        revalidateOnFocus: false,
+    })
+
+    // ✅ Handle loading and error states
+    if (error) {
+        return (
+            <p className="text-center text-red-600 mt-4">
+                Error loading {type} data.
+            </p>
+        )
+    }
+
+    if (isLoading || !data) {
+        return <p className="text-center mt-4">Loading {type}...</p>
+    }
 
     return (
         <div className="bg-[#fff6ec] w-full px-10 py-10 text-center">
-            {type == "products" && (
+            {/* ---------- Header Section ---------- */}
+            {type === "products" && (
                 <>
-                    <h1 className="text-3xl font-light font-[poppins] text-wrap leading-relaxed md:leading-loos">
+                    <h1
+                        aria-label="productHead"
+                        className="text-3xl font-light font-[poppins] text-wrap leading-relaxed"
+                    >
                         Explore the Recent Creations of Our Residential Interior
                         Designers in Bangalore
                     </h1>
                     <p className="tracking-wide text-lg text-center">
-                        From residential interior design in bangalore to
-                        commercial spaces in Bangalore, we have the expertise to
-                        transform any space into something truly extraordinary.
-                        Being the best Luxury Interior designers in Bangalore,
-                        we stand out for our attention to detail. From selecting
-                        the perfect color palette to choosing the right fabrics
-                        and finishes, we leave no stone unturned in their quest
-                        for perfection
+                        From residential interior design in Bangalore to
+                        commercial spaces, we transform any area into something
+                        extraordinary. Being among the best luxury interior
+                        designers, we focus on every detail — from selecting the
+                        right color palette to choosing perfect finishes.
                     </p>
                 </>
             )}
-            {type == "team" && (
+
+            {type === "team" && (
                 <article className="bg-[#dea35c] w-full px-10 py-10 text-white">
-                    <h1 className="text-3xl font-light font-[poppins] text-wrap leading-relaxed md:leading-loos">
+                    <h1 className="text-3xl font-light font-[poppins] text-wrap leading-relaxed">
                         Meet Our Team of Innovative Interior Designers in JP
                         Nagar, Bangalore
                     </h1>
                     <p className="tracking-wide text-lg text-center">
-                        Meet our creative team of dedicated interior designers
-                        in JP Nagar. Our designers utilize a unique blend of
-                        creativity and proficiency to create individualized
-                        environments that satisfy your economical and
-                        architectural requirements. They bring new insights to
-                        every project they work on. We place a high value on
-                        teamwork and careful attention to detail throughout the
-                        whole design process, guaranteeing a smooth, customized
-                        design experience. Our team is dedicated to working
-                        above and beyond your expectations and creating spaces
-                        that inspire, whether your style is modern simple
-                        design, classic style, or ethnic appeal.
+                        Meet our creative team of interior designers in JP Nagar
+                        — dedicated professionals who bring new insights and
+                        passion to every project. With teamwork and attention to
+                        detail, we deliver spaces that inspire and elevate.
                     </p>
                 </article>
             )}
+
+            {/* ---------- Data Grid Section ---------- */}
             <div className="flex flex-wrap justify-center">
-                {data.map((item, index) => {
-                    const imagePath = (item as { image?: { url: string }[] })
-                        ?.image?.[0]?.url
-                    if (!imagePath) return null
+                {data.map(
+                    (item: ProductProps | TeamMemberProps, index: number) => {
+                        const imagePath = (
+                            item as { image?: { url: string }[] }
+                        )?.image?.[0]?.url
+                        if (!imagePath) return null
 
-                    return (
-                        <AnimatedItem
-                            tag={motion.div}
-                            key={index}
-                            index={index}
-                        >
-                            <Fade triggerOnce>
-                                <div className="group relative w-[362px] h-[220px] m-5 overflow-hidden rounded-lg shadow-md">
-                                    <LazyImage
-                                        src={imagePath}
-                                        alt={
-                                            type === "products"
-                                                ? (item as ProductProps).title
-                                                : (item as TeamMemberProps).name
-                                        }
-                                        fill
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 362px"
-                                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                                    />
+                        return (
+                            <AnimatedItem
+                                tag={motion.div}
+                                key={index}
+                                index={index}
+                            >
+                                <Fade triggerOnce>
+                                    <div className="group relative w-[362px] h-[220px] m-5 overflow-hidden rounded-lg shadow-md">
+                                        {/* Item Image */}
+                                        <LazyImage
+                                            src={imagePath}
+                                            alt={
+                                                type === "products"
+                                                    ? (item as ProductProps)
+                                                          .title
+                                                    : (item as TeamMemberProps)
+                                                          .name
+                                            }
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 362px"
+                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
 
-                                    <Link
-                                        href={
-                                            type === "products"
-                                                ? `/services/${
-                                                      (item as ProductProps)
-                                                          .documentId
-                                                  }`
-                                                : `/team/${
-                                                      (item as TeamMemberProps)
-                                                          .id
-                                                  }`
-                                        }
-                                    >
-                                        <div className="transparency inset-0 bg-[#dea35c]/60 flex flex-col items-center justify-center">
-                                            {type === "products" ? (
-                                                <>
+                                        {/* Hover Overlay with Metadata */}
+                                        <Link
+                                            href={
+                                                type === "products"
+                                                    ? `/services/${
+                                                          (item as ProductProps)
+                                                              .documentId
+                                                      }`
+                                                    : `/team/${
+                                                          (
+                                                              item as TeamMemberProps
+                                                          ).id
+                                                      }`
+                                            }
+                                        >
+                                            <div className="absolute inset-0 bg-[#dea35c]/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                {type === "products" ? (
+                                                    <>
+                                                        <ProductMeta
+                                                            label="Type"
+                                                            value={
+                                                                (
+                                                                    item as ProductProps
+                                                                ).title
+                                                            }
+                                                        />
+                                                        <ProductMeta
+                                                            label="Theme"
+                                                            value={
+                                                                (
+                                                                    item as ProductProps
+                                                                ).theme
+                                                            }
+                                                        />
+                                                        <ProductMeta
+                                                            label="Budget"
+                                                            value={
+                                                                (
+                                                                    item as ProductProps
+                                                                ).price
+                                                            }
+                                                        />
+                                                    </>
+                                                ) : (
                                                     <ProductMeta
-                                                        label="Type"
+                                                        label="Name"
                                                         value={
                                                             (
-                                                                item as ProductProps
-                                                            ).title
+                                                                item as TeamMemberProps
+                                                            ).name
                                                         }
                                                     />
-                                                    <ProductMeta
-                                                        label="Theme"
-                                                        value={
-                                                            (
-                                                                item as ProductProps
-                                                            ).theme
-                                                        }
-                                                    />
-                                                    <ProductMeta
-                                                        label="Budget"
-                                                        value={
-                                                            (
-                                                                item as ProductProps
-                                                            ).price
-                                                        }
-                                                    />
-                                                </>
-                                            ) : (
-                                                <ProductMeta
-                                                    label="Name"
-                                                    value={
-                                                        (
-                                                            item as TeamMemberProps
-                                                        ).name
-                                                    }
-                                                />
-                                            )}
-                                        </div>
-                                    </Link>
-                                </div>
-                            </Fade>
-                        </AnimatedItem>
-                    )
-                })}
+                                                )}
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </Fade>
+                            </AnimatedItem>
+                        )
+                    }
+                )}
             </div>
         </div>
     )

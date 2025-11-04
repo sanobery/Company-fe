@@ -1,5 +1,12 @@
 import Hero from "@/components/sections/home/hero"
 
+/**
+ * Contact Page Component
+ * ----------------------
+ * Displays the contact information section of the website.
+ * Uses the reusable <Hero /> component with customized props
+ * to render a banner section for the contact page.
+ */
 export default function Contact() {
     return (
         <div>

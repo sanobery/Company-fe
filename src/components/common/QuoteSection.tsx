@@ -1,7 +1,24 @@
-// components/QuoteSection.tsx
 import { QuoteSectionProps } from "@/types/companyInterface"
 import ContactPage from "../sections/contact/contactPage"
 
+/**
+ * QuoteSection Component
+ * ---------------------------------
+ * Displays a "Get Quote" form section with a customizable
+ * title, color theme, and width.
+ *
+ * Props (from QuoteSectionProps):
+ * - color: string → accent color used for the border and heading (default: "#d3925d")
+ * - title: string → title text shown above the form (default: "GET QUOTE NOW")
+ * - widthClass: string → Tailwind class controlling component width (default: "w-full md:w-1/2")
+ *
+ * Usage:
+ * <QuoteSection
+ *   color="#ff9900"
+ *   title="Request a Free Quote"
+ *   widthClass="w-full lg:w-1/3"
+ * />
+ */
 export default function QuoteSection({
     color = "#d3925d",
     title = "GET QUOTE NOW",

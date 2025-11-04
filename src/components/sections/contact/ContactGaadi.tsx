@@ -18,7 +18,11 @@ export default function ContactGaadi() {
                         fill
                     />
                     {/* Foreground image (slides/fades in once and stays) */}
-                    <Slide direction="left" duration={1000}>
+                    <Slide
+                        data-testid="slideMock"
+                        direction="left"
+                        duration={1000}
+                    >
                         <div className="absolute left-0 w-full flex justify-start items-end">
                             <LazyImage
                                 src="/images/gaadi.png"
@@ -31,11 +35,17 @@ export default function ContactGaadi() {
                     </Slide>
                 </div>
                 <div className="w-full lg:w-1/3 bg-[#0e3234] text-white font-[poppins]">
-                    <h1 className="text-center p-5 font-bold text-xl md:text-4xl">
+                    <h1
+                        aria-label="contactGaddiHead"
+                        className="text-center p-5 font-bold text-xl md:text-4xl"
+                    >
                         What’s New in Wea Interior Designers company in
                         Bangalore 2025
                     </h1>
-                    <p className="text-center p-5 text-lg md:text-xl ">
+                    <p
+                        aria-label="contactGaddiPara"
+                        className="text-center p-5 text-lg md:text-xl "
+                    >
                         Get free consultation from the comfort of your homes.
                         Design Gaadi is the latest endeavor by WEA Designs. This
                         convenient consultation service eliminates the hassle of

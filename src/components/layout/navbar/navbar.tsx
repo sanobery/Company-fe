@@ -5,6 +5,21 @@ import { FaBars } from "react-icons/fa"
 import ThemeToggle from "../../shared/themeToggle"
 import SearchBar from "../searchbar"
 import LazyImage from "@/components/common/LazyImage"
+/**
+ * Navbar Component
+ * ------------------------------------------------------------
+ * This component renders a responsive navigation bar that includes:
+ *  - A company logo.
+ *  - A list of navigation links (Home, Services, Team, Blog, Contact).
+ *  - A theme toggle button (light/dark mode).
+ *  - A search bar (visible on desktop, collapsible on mobile).
+ *
+ * Features:
+ *  - Responsive design: adjusts between mobile and desktop views.
+ *  - Mobile menu toggle controlled via a hamburger icon (`FaBars`).
+ *  - Accessible labels for interactive elements.
+ *  - Clean layout using Tailwind CSS utility classes.
+ */
 
 const navItem = ["home", "services", "team", "blog", "contact"]
 
@@ -23,9 +38,10 @@ export default function Navbar() {
                         height={70}
                     />
                     {/* Mobile Menu Toggle */}
-
                     <FaBars
-                        className="cursor-pointer  text-xl lg:hidden"
+                        role="button"
+                        className="cursor-pointer text-xl lg:hidden"
+                        aria-label="mobileMenuToggle"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     />
                 </div>
@@ -54,7 +70,10 @@ export default function Navbar() {
                 {/* Mobile Nav */}
                 {isMobileMenuOpen && (
                     <>
-                        <ul className="flex flex-col items-center gap-2 mt-2 lg:hidden">
+                        <ul
+                            aria-label="mobileMenu"
+                            className="flex flex-col items-center gap-2 mt-2 lg:hidden"
+                        >
                             {navItem.map((value) => (
                                 <NavItem
                                     key={value}

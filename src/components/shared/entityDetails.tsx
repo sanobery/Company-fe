@@ -1,6 +1,5 @@
 "use client"
 
-import teamService from "@/services/api/axiosInstance"
 import blogService from "@/services/blog/blogService"
 import {
     BlogProps,
@@ -16,8 +15,13 @@ import { useEffect } from "react"
 import AnimatedItem from "./animatedItem"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import teamService from "@/services/team/teamService"
 
-// Shared fetcher for SWR
+/**
+ * Shared async fetcher used by SWR for data retrieval.
+ * Dynamically determines whether to fetch a blog or team member entity
+ * based on the `type` parameter.
+ */
 const fetchEntity = async (type: "blog" | "team", slug: string) => {
     if (type === "blog") {
         return await blogService.getBySlug(slug)
@@ -26,15 +30,39 @@ const fetchEntity = async (type: "blog" | "team", slug: string) => {
     }
 }
 
+/**
+ * EntityDetails Component
+ * ------------------------------------------------------------
+ * Dynamically renders details for either:
+ *   - A Blog post
+ *   - A Team Member profile
+ *
+ * Features:
+ *  - Uses SWR for efficient client-side caching & revalidation.
+ *  - Displays an image, content, and related blog posts.
+ *  - Falls back to a “Not Found” hero section when data is missing.
+ *  - Includes a responsive layout with a quote form on the side.
+ *
+ * Props (EntityDetailsProps):
+ *  - type: "blog" | "team" → Determines which type of entity to fetch.
+ *  - slug: string → The unique identifier (slug or ID) for the entity.
+ */
 export default function EntityDetails({ type, slug }: EntityDetailsProps) {
     const cacheKey = `${type}-${slug}`
     const { allPosts, setAllPosts } = useBlogStore()
+
+    // Fetch all posts if not already loaded (for the "Related Posts" section)
     useEffect(() => {
         if (allPosts.length === 0) {
             blogService.getAll().then(setAllPosts)
         }
     }, [])
 
+    /**
+     * SWR handles data fetching and caching logic
+     * - Avoids refetching when switching tabs or reconnecting
+     * - Keeps previously loaded data for a smoother UX
+     */
     const { data, error, isLoading } = useSWR(
         cacheKey,
         () => fetchEntity(type, slug),

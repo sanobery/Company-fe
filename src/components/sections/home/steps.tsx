@@ -19,8 +19,10 @@ export default function Steps({ data }: StepsProps) {
                 image={image?.url}
                 heading={heading}
                 paragraph={paragraph}
+                data-testid="steps"
             />
-            <div className="flex flex-col md:flex-row m-8 gap-5 ">
+
+            <div className="flex flex-col md:flex-row m-8 gap-5">
                 {stepItem.map(({ icon, title, description }, index) => {
                     const Icon = icons[icon as keyof typeof icons] || FaTags
                     return (

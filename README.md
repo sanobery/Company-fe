@@ -165,3 +165,14 @@ Zustand is a lightweight, scalable state management library perfect for Next.js 
 ```bash
 npm install zustand
 ```
+
+## QS MODULE
+
+The qs module (short for Query String) is a small but very useful JavaScript library that helps you build and parse complex query strings, especially for APIs like Strapi, which use deeply nested populate structures.
+
+## 📦 Installation
+
+```bash
+npm install qs
+npm i --save-dev @types/qs
+```

@@ -66,7 +66,7 @@ export interface ProductProps extends WithDocument, WithImage {
 }
 
 /**UI & Layout */
-export interface FooterDetailProps extends WithLabel {
+export interface FooterDetailProps extends WithLabel, LinkProps {
     items: string[]
 }
 
@@ -102,7 +102,7 @@ export interface ContactPayload {
 export interface HeroProps {
     heading: string
     paragraph: string
-    image: string
+    image?: string
     showContactPage?: boolean
     notFound?: boolean
 }
@@ -185,4 +185,41 @@ export interface LazyImageProps {
     priority?: boolean
     fill?: boolean
     sizes?: string
+}
+export interface FooterLinkGroup {
+    id?: string
+    groupLabel: string
+    groupLinks: (WithLabel & ImageFormat)[]
+}
+
+interface AddressChild {
+    children: { text: string }[]
+}
+
+export interface footerProps extends Omit<HeroProps, "image"> {
+    image: Media
+    address: AddressChild[]
+    copyright: string
+    socialMediaIcon: SocialIconProps[]
+    footerLinkGroup: FooterLinkGroup[]
+}
+
+export interface footerLayoutProps {
+    footer: footerProps | null
+}
+
+export interface BlogState {
+    allPosts: BlogProps[]
+    setAllPosts: (posts: BlogProps[]) => void
+}
+
+interface ExtendedHeroProps extends Omit<HeroProps, "image"> {
+    image: { url: string }
+}
+
+export interface HomePageData {
+    hero: ExtendedHeroProps | null
+    stepSection?: StepsData | null
+    processSection?: ProcessData | null
+    testimonials?: Testimonial[] | null
 }

@@ -25,7 +25,11 @@ export default function ContactForm({
                 aria-describedby={error ? `${name}-error` : undefined}
             />
             {error && (
-                <p role="alert" className={`${color} text-sm mt-1`}>
+                <p
+                    aria-label="alert"
+                    role="alert"
+                    className={`${color} text-sm mt-1`}
+                >
                     {error}
                 </p>
             )}

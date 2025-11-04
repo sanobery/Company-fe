@@ -2,20 +2,25 @@ import type { Metadata } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/lib/themeProvider"
 import Navbar from "@/components/layout/navbar/navbar"
-import SearchProvider from "@/components/shared/searchContext"
+import SearchProvider from "@/lib/searchContext"
 import Footer from "@/components/layout/footer/footer"
 import Sidebar from "@/components/layout/sidebar"
+import HomeService from "@/services/home/homeService"
 
 export const metadata: Metadata = {
     title: "Interio",
     description: "Interior UI/UX app for home design.",
 }
 
-export default function RootLayout({
+export const revalidate = 86400 // ✅ ISR: revalidate once per day (optional)
+
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode
 }>) {
+    const footer = await HomeService.getfooter()
+
     return (
         <html lang="en" suppressHydrationWarning>
             <body>
@@ -32,7 +37,7 @@ export default function RootLayout({
                     </SearchProvider>
                 </ThemeProvider>
                 <Sidebar />
-                <Footer />
+                <Footer footer={footer.footerSection} />
             </body>
         </html>
     )

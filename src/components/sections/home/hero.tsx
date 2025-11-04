@@ -21,6 +21,7 @@ export default function Hero({
 
     return (
         <section
+            aria-label="hero"
             className={`relative w-full ${showContactPage ? `h-[130vh]` : `h-[90vh]`} md:h-[80vh] overflow-hidden`}
         >
             {/* Background Image */}
@@ -57,6 +58,7 @@ export default function Hero({
                                         visible: { opacity: 1, y: 0 },
                                     }}
                                     className="mr-2"
+                                    aria-label="heroHead"
                                 >
                                     {word}
                                 </motion.span>

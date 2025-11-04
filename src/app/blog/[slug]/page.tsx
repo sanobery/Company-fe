@@ -17,3 +17,5 @@ export default async function BlogPage({
         </SWRConfig>
     )
 }
+
+export const revalidate = 86400 // ✅ ISR: revalidate once per day (optional)
