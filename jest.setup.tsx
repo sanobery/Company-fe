@@ -1,4 +1,5 @@
 import "@testing-library/jest-dom"
+import React from "react"
 
 // Mock Next.js Image (simulate LazyImage)
 jest.mock("@/components/common/LazyImage", () => ({
@@ -35,5 +36,11 @@ jest.mock("react-awesome-reveal", () => ({
 jest.mock("swr")
 
 jest.mock("framer-motion", () => ({
-    motion: { div: (props: any) => <div {...props} /> },
+    motion: {
+        div: (
+            props: React.HTMLAttributes<HTMLDivElement> & {
+                children?: React.ReactNode
+            }
+        ) => React.createElement("div", props),
+    },
 }))

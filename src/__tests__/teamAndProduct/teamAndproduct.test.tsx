@@ -5,14 +5,18 @@ import { render, screen, waitFor } from "@testing-library/react"
 import "@testing-library/jest-dom"
 import useSWR from "swr"
 import Product from "@/components/sections/product/product"
-import ProductService from "@/services/product/productService"
-import teamService from "@/services/team/teamService"
 
 // ✅ Mock API services
 jest.mock("@/services/product/productService")
 jest.mock("@/services/team/teamService")
 jest.mock("@/services/api/axiosInstance")
-jest.mock("next/link", () => ({ children }: any) => <a>{children}</a>)
+jest.mock("next/link", () => {
+    const Link = ({ children }: { children: React.ReactNode }) => (
+        <a>{children}</a>
+    )
+    Link.displayName = "Link"
+    return Link
+})
 
 describe("Product Component", () => {
     beforeEach(() => {
