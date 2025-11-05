@@ -1,5 +1,10 @@
 import HomeClient from "@/components/sections/home/home"
+import { getMessage } from "@/lib/constantMessage"
+import { Metadata } from "next"
 
+export const metadata: Metadata = {
+    title: getMessage("Home", "page"),
+}
 /**
  * Home Page (Server Component)
  * ------------------------------------------------------------

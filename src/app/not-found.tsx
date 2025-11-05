@@ -1,5 +1,11 @@
 // app/not-found.tsx
 import Hero from "@/components/sections/home/hero"
+import { getMessage } from "@/lib/constantMessage"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: getMessage("Page", "notFound"),
+}
 
 /**
  * NotFound Component

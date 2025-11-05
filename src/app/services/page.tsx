@@ -1,5 +1,11 @@
 import Product from "@/components/sections/product/product"
 import ProductService from "@/services/product/productService"
+import { getMessage } from "@/lib/constantMessage"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: getMessage("Service", "page"),
+}
 
 /**
  * Services Page Component
