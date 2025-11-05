@@ -168,6 +168,7 @@ export interface TestimonialsProps {
 
 export interface ProductComponentProps {
     type: "products" | "team"
+    data: ProductProps[] | TeamMemberProps[]
 }
 
 export interface ProductMetaProps {

@@ -1,4 +1,5 @@
 import Product from "@/components/sections/product/product"
+import ProductService from "@/services/product/productService"
 
 /**
  * Services Page Component
@@ -10,6 +11,10 @@ import Product from "@/components/sections/product/product"
  * The 'type' prop is set to "products" to indicate that the component
  * should fetch and display product-related data.
  */
-export default function Services() {
-    return <Product type="products" />
+export default async function Services() {
+    const data = await ProductService.getAll()
+
+    return <Product type="products" data={data} />
 }
+
+export const revalidate = 86400
