@@ -26,11 +26,13 @@ export function getMessage(field: string, type: string, extra?: string) {
                 ? `${fieldName} must be ${extra}.`
                 : `${fieldName} is invalid.`
         case "notFound":
-            return `${fieldName} not found.`
+            return `${fieldName} not found 🙁`
         case "failed":
             return `Failed to load ${fieldName}.Please try again later.`
         case "loading":
             return `Loading ${fieldName}... Please Wait !!!`
+        case "page":
+            return `${fieldName} Page`
         default:
             return `${fieldName} error.`
     }
