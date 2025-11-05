@@ -46,13 +46,12 @@ export default function Navbar() {
                     />
                 </div>
 
-                {/* Search Bar */}
-                <div className="hidden lg:flex items-center ml-auto mr-4">
-                    <SearchBar />
-                </div>
-
                 {/* Desktop Nav */}
                 <ul className="hidden h-full gap-12 lg:flex">
+                    <li>
+                        {/* Search Bar */}
+                        <SearchBar />
+                    </li>
                     {navItem.map((value) => (
                         <NavItem
                             key={value}
@@ -88,10 +87,10 @@ export default function Navbar() {
                             <li>
                                 <ThemeToggle />
                             </li>
+                            <li>
+                                <SearchBar />
+                            </li>
                         </ul>
-                        <div className="w-full px-4 mt-2">
-                            <SearchBar />
-                        </div>
                     </>
                 )}
             </nav>

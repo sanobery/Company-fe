@@ -1,7 +1,7 @@
 "use client"
 
 import Hero from "@/components/sections/home/hero"
-import Product from "@/components/sections/product/product"
+// import Product from "@/components/sections/product/product"
 import Process from "@/components/sections/home/process"
 import Steps from "@/components/sections/home/steps"
 import Contact from "@/components/sections/contact/ContactGaadi"
@@ -50,7 +50,7 @@ export default function HomeClient() {
                 </div>
 
                 <Process data={processSection ?? null} />
-                <Product type="products" />
+                {/* <Product type="products" /> */}
                 <Testimonials testimonials={testimonials ?? null} />
             </>
         </RenderState>

@@ -1,60 +1,48 @@
-"use client"
-
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 import { FaSearch } from "react-icons/fa"
-import { useSearch } from "@/lib/searchContext"
-import { usePathname } from "next/navigation"
-import toast from "react-hot-toast"
 
-export default function SearchBar() {
-    const { query, setQuery } = useSearch()
-    const [showInput, setShowInput] = useState<boolean>(false)
+export default function ResponsiveSearchBar() {
+    const [showInput, setShowInput] = useState(false)
+    const [query, setQuery] = useState<string>("")
     const inputRef = useRef<HTMLInputElement>(null)
-    const pathname = usePathname()
-
-    // Focus input when shown
-    useEffect(() => {
-        if (showInput && inputRef.current) {
-            inputRef.current.focus()
-        }
-    }, [showInput])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value
-
-        // ✅ If not on /blog, show toast and do NOT update query
-        if (pathname !== "/blog") {
-            toast.error("Searching works only for Blogs", { duration: 2000 })
-            return
-        }
-
-        // ✅ Otherwise, update search context
-        setQuery(value)
+        setQuery(e.target.value)
     }
 
     return (
-        <div className="relative w-full max-w-xs">
-            <div className="flex w-full justify-center">
+        <div className="flex justify-center items-center w-full">
+            {/* Search container */}
+            <div
+                className={`relative flex items-center border-2 border-navfootContrast rounded-full transition-all duration-500 bg-white overflow-hidden
+          ${showInput ? "w-[80vw] sm:w-[300px] md:w-[400px]" : "w-12"}
+        `}
+            >
+                {/* Input field */}
                 <input
                     ref={inputRef}
                     type="text"
                     placeholder="Search..."
                     value={query}
-                    className={`w-full pl-10 pr-4 py-2 border-2 border-[#d3925d] rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#d3925d] ${
-                        showInput
-                            ? "opacity-100"
-                            : "opacity-0 pointer-events-none"
-                    }`}
                     onChange={handleChange}
+                    className={`pl-4 pr-10 py-2 w-full text-gray-700 rounded-full focus:outline-none transition-all duration-300
+            ${showInput ? "opacity-100" : "opacity-0 pointer-events-none"}
+          `}
+                />
+
+                {/* Search Icon */}
+                <FaSearch
+                    role="button"
+                    aria-label="searchBar"
+                    className="absolute right-3 text-navfootItem text-lg cursor-pointer transition-transform duration-300 hover:scale-110"
+                    onClick={() => {
+                        setShowInput((prev) => !prev)
+                        setTimeout(() => {
+                            if (!showInput) inputRef.current?.focus()
+                        }, 200)
+                    }}
                 />
             </div>
-
-            <FaSearch
-                role="button"
-                aria-label="searchBar"
-                className="absolute right-3 top-3.5 text-navfootItem cursor-pointer"
-                onClick={() => setShowInput((prev) => !prev)}
-            />
         </div>
     )
 }
