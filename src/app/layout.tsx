@@ -6,32 +6,34 @@ import SearchProvider from "@/lib/searchContext"
 import Footer from "@/components/layout/footer/footer"
 import Sidebar from "@/components/layout/sidebar"
 import HomeService from "@/services/home/homeService"
+import { siteConfig } from "@/lib/config"
+
+const siteUrl = siteConfig.baseUrl
 
 export const metadata: Metadata = {
+    metadataBase: new URL(siteUrl),
     title: {
-        default: "Interio",
-        template: `%s | Interio`,
+        default: siteConfig.name,
+        template: `%s | ${siteConfig.name}`,
     },
-    description: "Interior UI/UX app for home design.",
+    description: siteConfig.description,
     keywords: [
         "interior designers in Bangalore",
         "home interior design team",
         "luxury interiors JP Nagar",
         "Interio design experts",
     ],
-    metadataBase: new URL(
-        process.env.NEXT_SITE_URL ?? "https://yourdomain.com"
-    ),
+    authors: [{ name: "Sanober Yousuf" }, { name: "Debasis Sabat" }],
     openGraph: {
         title: "Meet Our Interior Design Team | Interio",
         description:
             "Discover the talented professionals behind Interio’s innovative interiors in Bangalore. Our team brings life to every project with passion and precision.",
-        url: process.env.NEXT_SITE_URL ?? "https://yourdomain.com",
+        url: siteUrl,
         type: "website",
         siteName: "Interio",
         images: [
             {
-                url: "/images/logo.png",
+                url: `${siteUrl}/images/logo.png`, // ✅ Absolute URL
                 width: 1200,
                 height: 630,
                 alt: "Interio Design Team",
@@ -43,17 +45,15 @@ export const metadata: Metadata = {
         title: "Meet Our Interior Design Team | Interio",
         description:
             "Get to know the creative minds designing your dream spaces at Interio.",
-        images: ["https://yourdomain.com/og-images/team.jpg"],
+        images: [`${siteUrl}/images/logo.png`], // ✅ Absolute URL
     },
 }
 
-export const revalidate = 86400 // ✅ ISR: revalidate once per day (optional)
+export const revalidate = 86400
 
 export default async function RootLayout({
     children,
-}: Readonly<{
-    children: React.ReactNode
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
     const footer = await HomeService.getfooter()
 
     return (

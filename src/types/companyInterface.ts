@@ -25,7 +25,7 @@ interface WithLabel {
 }
 
 interface WithImage {
-    image: Media[]
+    image: Media
 }
 
 interface WithDocument {

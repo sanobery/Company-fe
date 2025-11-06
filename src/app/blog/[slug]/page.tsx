@@ -2,37 +2,35 @@
 import EntityDetails from "@/components/shared/entityDetails"
 import blogService from "@/services/blog/blogService"
 import { SWRConfig } from "swr"
+import { cache } from "react"
+import { generateEntityMetadata } from "@/lib/seoUtils"
 
-/**
- * BlogPage Component (Server Component)
- *
- * - This page handles dynamic blog routes: `/blog/[slug]`.
- * - Fetches a specific blog post using its slug.
- * - Wraps the page in SWRConfig to provide initial (fallback) data for client-side hydration.
- * - Uses Incremental Static Regeneration (ISR) with a revalidation interval.
- *
- * @async
- * @function BlogPage
- * @param {{ params: Promise<{ slug: string }> }} props - The dynamic route parameters.
- * @returns {JSX.Element} The rendered blog detail page wrapped with SWRConfig.
- *
- * @example
- * // Example route:
- * // /blog/my-first-post
- */
+// ✅ Cached version of the fetcher
+const getBlog = cache(async (slug: string) => {
+    const post = await blogService.getBySlug(slug)
+    return post
+})
+
+export async function generateMetadata({
+    params,
+}: {
+    params: { slug: string }
+}) {
+    return generateEntityMetadata("blog", getBlog, params.slug)
+}
+
+export const revalidate = 86400
+
 export default async function BlogPage({
     params,
 }: {
-    params: Promise<{ slug: string }>
+    params: { slug: string }
 }) {
-    const { slug } = await params
-    const data = await blogService.getBySlug(slug)
+    const post = await getBlog(params.slug)
 
     return (
-        <SWRConfig value={{ fallback: { [`blog-${slug}`]: data } }}>
-            <EntityDetails type="blog" slug={slug} />
+        <SWRConfig value={{ fallback: { [`blog-${params.slug}`]: post } }}>
+            <EntityDetails type="blog" slug={params.slug} />
         </SWRConfig>
     )
 }
-
-export const revalidate = 86400 // ✅ ISR: revalidate once per day (optional)

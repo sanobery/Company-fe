@@ -3,7 +3,22 @@ import ProductService from "@/services/product/productService"
 import ProductDetail from "@/components/sections/product/productDetail"
 import { getMessage } from "@/lib/constantMessage"
 import Hero from "@/components/sections/home/hero"
+import { cache } from "react"
+import { generateEntityMetadata } from "@/lib/seoUtils"
 
+// ✅ Cached version of the fetcher
+const getProduct = cache(async (slug: string) => {
+    const post = await ProductService.getBySlug(slug)
+    return post
+})
+
+export async function generateMetadata({
+    params,
+}: {
+    params: { slug: string }
+}) {
+    return generateEntityMetadata("team", getProduct, params.slug)
+}
 /**
  * Dynamic Product/Team Detail Page
  * ---------------------------------
@@ -21,7 +36,7 @@ export default async function ProductPage({
 }: {
     params: { slug: string }
 }) {
-    const member = await ProductService.getBySlug(params.slug)
+    const member = await getProduct(params.slug)
 
     if (!member) {
         return (
