@@ -4,6 +4,18 @@ import EntityDetails from "@/components/shared/entityDetails"
 import { getMessage } from "@/lib/constantMessage"
 import teamService from "@/services/team/teamService"
 import { SWRConfig } from "swr"
+import { cache } from "react"
+import { generateEntityMetadata } from "@/lib/seoUtils"
+
+// ✅ Cached version of the fetcher
+const getTeamMemberDetail = cache(async (slug: string) => {
+    const post = await teamService.getById(Number(slug))
+    return post
+})
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+    return generateEntityMetadata("team", getTeamMemberDetail, params.id)
+}
 
 /**
  * Dynamic Product/Team Detail Page
@@ -23,7 +35,7 @@ export default async function TeamMemberPage({
     params: Promise<{ id: string }>
 }) {
     const { id } = await params
-    const data = await teamService.getById(Number(id))
+    const data = await getTeamMemberDetail(id)
 
     if (!data) {
         return (
