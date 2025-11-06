@@ -46,7 +46,7 @@ export async function generateEntityMetadata(
     const url = `${siteUrl}/${type}/${slug}`
 
     const image = entity.image
-        ? `${siteUrl}${entity.image?.url}`
+        ? `${siteUrl}${entity.image?.[0]?.url}`
         : `${siteUrl}/images/default-og.jpg`
 
     return {
